@@ -14,6 +14,11 @@ console.log('loaded');
 function displayResults(data) {
     // adding the info to the page here?
     var dataDestination = $("#search-results");
+
+    //clear results
+    dataDestination.empty();
+    map.featureLayer.clearLayers();
+
     // var each = data.data[0];
     // debugger;
     var markers = new L.MarkerClusterGroup();
@@ -32,6 +37,7 @@ function displayResults(data) {
         bounds._northEast._lat = Math.min(latlong[0], bounds._northEast._lat);
         bounds._northEast._lng = Math.min(latlong[0], bounds._northEast._lng);
         var link = each.route+each.id;
+        // console.log(dataDestination);
         dataDestination.append('<li><a href="'+link+'">'+each.name+'</a></li><br>'+each.lat);
 
         var marker = L.marker(new L.LatLng(latlong[0], latlong[1]), {
@@ -44,7 +50,7 @@ function displayResults(data) {
 
     }
 
-    map.addLayer(markers);
+    map.featureLayer.addLayer(markers);
 
     map.fitBounds(bounds);
 }
